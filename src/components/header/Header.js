@@ -1,6 +1,8 @@
+import Navigation from "./Navigation";
+
 const Header = () => {
     return (
-        <h1>Hi</h1>
+        <Navigation />
     );
 }
 
