@@ -1,6 +1,10 @@
+import Menu from "./Menu";
+
 const Body = () => {
     return (
-       <div></div>
+        <div>
+            <Menu />
+        </div>
     );
 }
 
