@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardBody, CardTitle } from 'reactstrap';
-import './Menuitem.css';
 
+// class for showing card per dish sent in props
 const MenuItem = (props) => {
-    console.log(props);
     return (
         <div>
             <Card className="Card">
-                <CardBody>
+                <CardBody onClick={() => props.DishSelect(props.dish)}>
                     <CardImg
                         className="CardImg"
                         width="100%"
@@ -15,7 +14,9 @@ const MenuItem = (props) => {
                         src={props.dish.image}
                     />
                     <CardImgOverlay>
-                        <CardTitle>{props.dish.name}</CardTitle>
+                        <CardTitle className="CardTitle">
+                            {props.dish.name}
+                        </CardTitle>
                     </CardImgOverlay>
                 </CardBody>
             </Card>
