@@ -2,7 +2,6 @@ import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 import LoadComments from './LoadComments';
 
 const DishDetail = (props) => {
-    let comments = <LoadComments comments={props.dish.comments} />
     return (
         <div>
             <Card style={{ marginTop: "10px" }}>
@@ -10,19 +9,15 @@ const DishDetail = (props) => {
                     src={props.dish.image}
                     alt={props.dish.name} />
                 <CardBody
-                    style={{ textalign: "left" }}>
-                    <CardTitle> {props.dish.name}</CardTitle>
+                    style={{ textAlign: "center" }}>
+                    <CardTitle style={{ fontSize: "50px", fontWeight: "500"}}>
+                        {props.dish.name}
+                    </CardTitle>
                     <CardText>
-                        <p>
-                            {comments}
-                        </p>
-                        <p>
-                            {props.dish.description}
-                        </p>
+                        <p>{props.dish.description}</p>
+                        <LoadComments comments={props.dish.comments} />
                         <hr />
-                        <p>
-                            Price: {props.dish.price}/-
-                        </p>
+                        <p style={{fontSize: "30px", fontWeight: "600"}}>Price: {props.dish.price}/-</p>
 
                     </CardText>
                 </CardBody>
