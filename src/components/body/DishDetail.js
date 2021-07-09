@@ -10,19 +10,20 @@ const DishDetail = (props) => {
                     alt={props.dish.name} />
                 <CardBody
                     style={{ textAlign: "center" }}>
-                    <CardTitle style={{ fontSize: "50px", fontWeight: "500"}}>
+                    <CardTitle style={{ fontSize: "50px", fontWeight: "500" }}>
                         {props.dish.name}
                     </CardTitle>
                     <CardText>
-                        <p>{props.dish.description}</p>
-                        <LoadComments comments={props.dish.comments} />
-                        <hr />
-                        <p style={{fontSize: "30px", fontWeight: "600"}}>Price: {props.dish.price}/-</p>
-
+                        {props.dish.description}
+                    </CardText>
+                    <LoadComments comments={props.dish.comments} />
+                    <hr />
+                    <CardText style={{ fontSize: "30px", fontWeight: "600" }}>
+                        Price: {props.dish.price}/-
                     </CardText>
                 </CardBody>
             </Card>
-        </div>
+        </div >
     );
 }
 
