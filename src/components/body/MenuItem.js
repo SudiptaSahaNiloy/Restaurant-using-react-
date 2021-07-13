@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../stylesheet/MenuItem.css';
 import { Card, CardImg, CardImgOverlay, CardBody, CardTitle } from 'reactstrap';
 
 // class for showing card per dish sent in props

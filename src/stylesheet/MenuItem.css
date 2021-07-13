@@ -1,0 +1,12 @@
+/* Start Section for menu item design */
+
+.Card {
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .CardImg {
+    opacity: 0.5;
+  }
+  
+  /* End Section for menu item design */
