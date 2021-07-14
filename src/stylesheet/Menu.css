@@ -1,0 +1,17 @@
+/* Menu Section starts here */
+
+.grid-container {
+    display: grid;
+    width: 100%;
+    height: 100px;
+    grid-template-columns: auto auto;
+    padding: 10px;
+}
+
+.grid-item {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* Menu Section ends here */

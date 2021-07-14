@@ -2,17 +2,28 @@ import { Component } from "react";
 import Dishes from "../../data/Dishes";
 import MenuItem from "./MenuItem";
 import DishDetail from "./DishDetail";
+import { CardColumns, Modal, ModalBody, ModalFooter, Button} from 'reactstrap';
+import '../../stylesheet/Menu.css'
 
 class Menu extends Component {
     state = {
         dishes: Dishes,
-        selectedDish: null
+        selectedDish: null,
+        modalOpen: false
+    }
+
+    // method to toggle modal state
+    modelOpenHandler = () => {
+        this.setState({
+            modalOpen: !this.state.modalOpen
+        })
     }
 
     // method to show selected dish
     onDishSelect = (dish) => {
         this.setState({
-            selectedDish: dish
+            selectedDish: dish,
+            modalOpen: !this.state.modalOpen
         });
     }
 
@@ -22,6 +33,7 @@ class Menu extends Component {
         const menu = this.state.dishes.map((item) => {
             return (
                 <MenuItem
+                    className="grid-item"
                     dish={item}
                     key={item.id}
                     DishSelect={this.onDishSelect} />
@@ -37,14 +49,17 @@ class Menu extends Component {
         // controling all the stuff in the body
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-6">
-                        {menu}
-                    </div>
-                    <div className="col-6">
+                <CardColumns className="grid-container">
+                    {menu}
+                </CardColumns>
+                <Modal isOpen={this.state.modalOpen} onClick={this.modelOpenHandler}>
+                    <ModalBody>
                         {dishDetail}
-                    </div>
-                </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={this.modelOpenHandler}>Close</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         )
     }
