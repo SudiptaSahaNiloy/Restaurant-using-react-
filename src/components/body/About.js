@@ -1,5 +1,7 @@
 const About = (props) => {
-    return(
+    // changing the title to dynamic
+    document.title = "About";
+    return (
         <div></div>
     );
 }

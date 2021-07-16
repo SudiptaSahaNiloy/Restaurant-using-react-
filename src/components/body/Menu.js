@@ -1,13 +1,15 @@
 import { Component } from "react";
 import Dishes from "../../data/Dishes";
+import COMMENTS from "../../data/Comments";
 import MenuItem from "./MenuItem";
 import DishDetail from "./DishDetail";
-import { CardColumns, Modal, ModalBody, ModalFooter, Button} from 'reactstrap';
+import { CardColumns, Modal, ModalBody, ModalFooter, Button } from 'reactstrap';
 import '../../stylesheet/Menu.css'
 
 class Menu extends Component {
     state = {
         dishes: Dishes,
+        comments: COMMENTS,
         selectedDish: null,
         modalOpen: false
     }
@@ -29,6 +31,8 @@ class Menu extends Component {
 
     // rendering it to DOM
     render() {
+        // changing the title to dynamic
+        document.title = "Menu";
         // mapping all the dishes from the menu
         const menu = this.state.dishes.map((item) => {
             return (
@@ -43,7 +47,10 @@ class Menu extends Component {
         // setting the value of selected dish in dishDetail
         let dishDetail = null;
         if (this.state.selectedDish != null) {
-            dishDetail = <DishDetail dish={this.state.selectedDish} />
+            const comments = this.state.comments.filter((comment) => {
+                return comment.dishId === this.state.selectedDish.id;
+            })
+            dishDetail = <DishDetail comments={comments} dish={this.state.selectedDish} />
         }
 
         // controling all the stuff in the body

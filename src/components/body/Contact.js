@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Form, FormGroup, Button, Label, Input, Col } from 'reactstrap';
+import '../../stylesheet/Contact.css'
 
 class Contact extends Component {
     constructor(props) {
@@ -44,9 +45,11 @@ class Contact extends Component {
     // }
 
     render() {
+        // changing the title to dynamic
+        document.title = "Contact"; 
         return (
             <div className="container">
-                <div className="row row-content" style={{ paddingLeft: "20px", textAlign: "left", paddingTop: "120px" }}>
+                <div className="row row-content" style={{ paddingLeft: "25rem", textAlign: "left", paddingTop: "20px" }}>
                     <div className="col-12">
                         <h3>Send us your Feedback</h3><br />
                     </div>

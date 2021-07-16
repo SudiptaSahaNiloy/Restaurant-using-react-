@@ -1,12 +1,14 @@
 import { Component } from "react";
 
-class Home extends Component{
+class Home extends Component {
     // constructor(props){
     //     super(props);
     // }
 
-    render(){
-        return(
+    render() {
+        // changing the title to dynamic
+        document.title = "My Restaurant";
+        return (
             <div></div>
         );
     }
