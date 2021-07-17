@@ -12,6 +12,8 @@ const LoadComments = (props) => {
                     <h5 style={{ fontSize: "10px", fontWeight: "100" }}>
                         -{cmnt.author}
                         <br />
+                        Rating: {cmnt.rating}
+                        <br />
                         {dateFormat(cmnt.date, "dddd, mmmm dS, yyyy")}
                     </h5>
                 </div>

@@ -36,7 +36,6 @@ class Contact extends Component {
     // method to handle the submit
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
     }
 
     // method to check state
