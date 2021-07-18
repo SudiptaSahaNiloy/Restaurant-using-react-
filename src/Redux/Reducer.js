@@ -1,6 +1,8 @@
 import COMMENTS from '../data/Comments';
 import { combineReducers } from 'redux';
 import * as ActionTypes from './ActionTypes';
+import { InitialContactForm } from './Forms';
+import { createForms } from 'react-redux-form';
 
 // reducer to handle only dish state
 const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
@@ -12,7 +14,7 @@ const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
                 dishes: []
             }
         case ActionTypes.LOAD_DISHES:
-            return{
+            return {
                 ...dishState,
                 isLoading: false,
                 dishes: action.payload
@@ -40,5 +42,8 @@ const commentReducer = (commentState = COMMENTS, action) => {
 // method for the reducer funtion in redux
 export const Reducer = combineReducers({
     dishes: dishReducer,
-    comments: commentReducer
+    comments: commentReducer,
+    ...createForms({
+        feedback: InitialContactForm
+    })
 })
