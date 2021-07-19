@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../stylesheet/MenuItem.css';
 import { Card, CardImg, CardImgOverlay, CardBody, CardTitle } from 'reactstrap';
+import { baseURL } from '../../Redux/baseURL';
 
 // class for showing card per dish sent in props
 const MenuItem = (props) => {
@@ -12,7 +13,7 @@ const MenuItem = (props) => {
                         className="CardImg"
                         width="100%"
                         alt={props.dish.name}
-                        src={props.dish.image}
+                        src={baseURL + props.dish.image}
                     />
                     <CardImgOverlay>
                         <CardTitle className="CardTitle">

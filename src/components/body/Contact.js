@@ -1,8 +1,11 @@
+import axios from "axios";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Control, Form, Errors, actions } from "react-redux-form";
 import { FormGroup, Button, Label, Col } from 'reactstrap';
 import '../../stylesheet/Contact.css';
+import { baseURL } from '../../Redux/baseURL.js';
+import { Alert } from 'reactstrap';
 
 // doc for react-redux-form 
 // https://davidkpiano.github.io/react-redux-form/docs.html
@@ -20,8 +23,44 @@ const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(val)
 
 class Contact extends Component {
+    state = {
+        alertShow: false,
+        alertText: null,
+        alertType: null
+    }
+
     // method to handle the submit
-    handleSubmit = (value) => {
+    handleSubmit = (values) => {
+        axios.post(baseURL + "feedback", values)
+            .then(response => response.status)
+            .then(status => {
+                console.log(status);
+                if (status === 201) {
+                    this.setState({
+                        alertShow: true,
+                        alertText: "Submittied Successfully",
+                        alertType: "success"
+                    })
+                    setTimeout(() => {
+                        this.setState({
+                            alertShow: false
+                        })
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                // console.log(error.messages);
+                this.setState({
+                    alertShow: true,
+                    alertText: error.message,
+                    alertType: "danger"
+                })
+                setTimeout(() => {
+                    this.setState({
+                        alertShow: false
+                    })
+                }, 2000);
+            })
         this.props.resetFeedbackForm();
     }
 
@@ -34,6 +73,12 @@ class Contact extends Component {
                     <div className="col-12">
                         <h3>Send us your Feedback</h3><br />
                     </div>
+
+                    <Alert
+                        isOpen={this.state.alertShow}
+                        color={this.state.alertType}>
+                        {this.state.alertText}
+                    </Alert>
 
                     {/* Form section starts here */}
                     <div className="col-12 col-md-7">

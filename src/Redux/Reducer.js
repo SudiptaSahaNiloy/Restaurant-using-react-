@@ -1,23 +1,32 @@
-import COMMENTS from '../data/Comments';
 import { combineReducers } from 'redux';
 import * as ActionTypes from './ActionTypes';
 import { InitialContactForm } from './Forms';
 import { createForms } from 'react-redux-form';
 
 // reducer to handle only dish state
-const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
+const dishReducer = (dishState = { isLoading: false, dishes: [], errorMsg: null }, action) => {
+    console.log(action);
     switch (action.type) {
         case ActionTypes.DISHES_LOADING:
             return {
                 ...dishState,
                 isLoading: true,
-                dishes: []
+                dishes: [],
+                errorMsg: null
             }
         case ActionTypes.LOAD_DISHES:
             return {
                 ...dishState,
                 isLoading: false,
-                dishes: action.payload
+                dishes: action.payload,
+                errorMsg: null
+            }
+        case ActionTypes.DISHES_FAILED:
+            return {
+                ...dishState,
+                isLoading: false,
+                dishes: [],
+                errorMsg: action.payload
             }
         default:
             return dishState;
@@ -25,14 +34,26 @@ const dishReducer = (dishState = { isLoading: false, dishes: [] }, action) => {
 }
 
 // reducer to handle only comment state
-const commentReducer = (commentState = COMMENTS, action) => {
+const commentReducer = (commentState = { isLoading: false, comments: [] }, action) => {
     switch (action.type) {
+        case ActionTypes.COMMENT_LOADING:
+            return {
+                ...commentState,
+                isLoading: true,
+                comments: []
+            }
+        case ActionTypes.LOAD_COMMENTS:
+            return {
+                ...commentState,
+                isLoading: false,
+                comments: action.payload
+            }
         case ActionTypes.ADD_COMMENT:
-            let payload = action.payload;
-            payload.id = commentState.length;
-            payload.date = new Date().toDateString();
-            console.log(payload);
-            return commentState.concat(payload)
+            let comment = action.payload
+            return {
+                ...commentState,
+                comments: commentState.comments.concat(comment)
+            }
 
         default:
             return commentState;

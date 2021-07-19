@@ -1,11 +1,11 @@
 import { Component } from "react";
 import MenuItem from "./MenuItem";
 import DishDetail from "./DishDetail";
-import { CardColumns, Modal, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { CardColumns, Modal, ModalBody, ModalFooter, Button, Alert } from 'reactstrap';
 import '../../stylesheet/Menu.css'
 import { connect } from "react-redux";
-import { addComment, fetchDishes } from "../../Redux/ActionCreators";
-import Loading from "./Loading.js"
+import { addComment, fetchComments, fetchDishes } from "../../Redux/ActionCreators";
+import Loading from "./Loading.js";
 
 // method to connect with redux state
 const mapStateToProps = (state) => {
@@ -21,7 +21,8 @@ const mapDispatchToProps = (dispatch) => {
         addComment: (dishId, rating, author, comment) => dispatch(
             addComment(dishId, rating, author, comment)
         ),
-        fetchdishes: () => dispatch(fetchDishes())
+        fetchdishes: () => dispatch(fetchDishes()),
+        fetchComments: () => dispatch(fetchComments())
     }
 }
 
@@ -49,18 +50,26 @@ class Menu extends Component {
     // method to execute after component mounts
     componentDidMount() {
         this.props.fetchdishes();
+        this.props.fetchComments();
     }
 
     // rendering it to DOM
     render() {
+        // console.log(this.props.dishes);
         if (this.props.dishes.isLoading === true) {
-            console.log("Loading");
             return (
                 <div>
                     <Loading />
                 </div>
             );
-        } else {
+        } else if (this.props.dishes.errorMsg != null) {
+            return (
+                <div>
+                    <Alert color="danger">{this.props.dishes.errorMsg}</Alert>
+                </div>
+            )
+        }
+        else {
             // changing the title to dynamic
             document.title = "Menu";
             // mapping all the dishes from the menu
@@ -77,7 +86,7 @@ class Menu extends Component {
             // setting the value of selected dish in dishDetail
             let dishDetail = null;
             if (this.state.selectedDish != null) {
-                const comments = this.props.comments.filter((comment) => {
+                const comments = this.props.comments.comments.filter((comment) => {
                     return comment.dishId === this.state.selectedDish.id;
                 })
                 dishDetail = <DishDetail
